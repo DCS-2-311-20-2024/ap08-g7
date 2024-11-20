@@ -49,8 +49,24 @@ export function init(scene, size, id, offset, texture) {
 
     // ビル
 
-    // コース(描画)
+    function makeBuilding (x, z, type) {
+        const height = [2, 2, 7, 4, 5];
+        const bldgH = height [type]*5;
+        const geometry = new THREE. BoxGeometry (8, bldgH, 8);
+        const material = new THREE.MeshLambertMaterial({color: 0x808080}); 
+        const bldg = new THREE.Mesh(
+        geometry,
+        material
+        )
+        bldg.position.set(offset.x + x,bldgH/2,offset.z + z);
+        scene.add(bldg);
+    }
+    makeBuilding (40, -20, 0);
+    makeBuilding (0, 10, 1);
+    makeBuilding (10, 0, 2);
+    makeBuilding (-20, 40, 3);
 
+    // コース(描画)
     // 制御点を補間して曲線を作る
     course = new THREE. CatmullRomCurve3( 
         controlPoints.map((p) => {

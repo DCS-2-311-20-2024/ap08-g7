@@ -133,6 +133,7 @@ export function makeCourse(scene) {
 }
 
 // カメラを返す
+
 export function getCamera() {
     return camera;
 }

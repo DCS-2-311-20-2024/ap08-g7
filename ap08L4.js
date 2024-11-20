@@ -58,7 +58,7 @@ export function init(scene, size, id, offset, texture) {
                 0,
                 offset.z + p[1]
             );
-        }), false
+        }), false 
     )
     // 曲線から100箇所を取り出し、円を並べる
     const points = course.getPoints(100);

@@ -19,8 +19,10 @@ let course;
 export const origin = new THREE.Vector3();
 export const controlPoints = [
     [ 50,-20],
-    [ 10,0],
-    [ 30,30],
+    [-25,-20],
+    [ 10, 35],
+    [ 40,  0],
+    [ 0,-10],
     [-25, 40]
 ]
 export function init(scene, size, id, offset, texture) {
@@ -49,8 +51,40 @@ export function init(scene, size, id, offset, texture) {
 
     // ビル
 
-    // コース(描画)
+    function makeBuilding (x, z, type) {
+        const height = [2, 2, 7, 4, 5];
+        const bldgH = height [type]*5;
+        const geometry = new THREE. BoxGeometry (8, bldgH, 8);
+        const material = new THREE.MeshLambertMaterial({map:texture});
+        const sideUvS = (type*2+1)/11; 
+        const sideUvE = (type*2+2)/11;
+        const topUvS = (type*2+2)/11;
+        const topUVE = (type*2+3)/11;
+        const uvs = geometry.getAttribute("uv");
+        for (let i = 0; i < 48; i+=4) {
+            if (i<16 || i > 22) {
+                uvs.array[i]= sideUvS;
+                uvs.array[i+2]= sideUvE;
+            }
+            else {
+                uvs.array[i]=topUvS;
+                uvs.array[i+2] = topUVE;
+            }
+        }
+        const bldg = new THREE.Mesh(
+        geometry,
+        material
+        )
+        bldg.position.set(offset.x + x,bldgH/2,offset.z + z);
+        scene.add(bldg);
+    }
+    makeBuilding (20, 15, 0);
+    makeBuilding (0, 10, 1);
+    makeBuilding (10, 0, 2);
+    makeBuilding (-10, 35, 3);
+    makeBuilding (35, 35, 4);
 
+    // コース(描画)
     // 制御点を補間して曲線を作る
     course = new THREE. CatmullRomCurve3( 
         controlPoints.map((p) => {

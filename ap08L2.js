@@ -19,8 +19,10 @@ let course;
 export const origin = new THREE.Vector3();
 export const controlPoints = [
     [ 50,-20],
-    [ 10,0],
-    [ 30,30],
+    [-25,-20],
+    [ 10, 35],
+    [ 40,  0],
+    [ 0,-10],
     [-25, 40]
 ]
 export function init(scene, size, id, offset, texture) {
@@ -76,10 +78,11 @@ export function init(scene, size, id, offset, texture) {
         bldg.position.set(offset.x + x,bldgH/2,offset.z + z);
         scene.add(bldg);
     }
-    makeBuilding (40, -20, 0);
+    makeBuilding (20, 15, 0);
     makeBuilding (0, 10, 1);
     makeBuilding (10, 0, 2);
-    makeBuilding (-20, 40, 3);
+    makeBuilding (-10, 35, 3);
+    makeBuilding (35, 35, 4);
 
     // コース(描画)
     // 制御点を補間して曲線を作る
